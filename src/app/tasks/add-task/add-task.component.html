@@ -1,0 +1,60 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Add New Task</h4>
+  <button type="button" class="close modal__close " aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="addTaskForm">
+    <div class="row">
+      <div class="col-md-3">
+        <label for="name">Name</label>
+      </div>
+      <div class="col-md-9">
+        <input class="form-control modal__btn--margin" type="text" name="name" id="name" formControlName="name">
+        <span *ngIf="!addTaskForm.get('name').valid && addTaskForm.get('name').touched" class="help-block">Please enter a title </span>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="dueDate">Due Date</label>
+      </div>
+      <div class="col-md-9 modal__btn--margin">
+        <my-date-picker name="dueDate" [options]="myDatePickerOptions" class="modal__body--margin " formControlName="dueDate"></my-date-picker>
+        <span *ngIf="!addTaskForm.get('dueDate').valid && addTaskForm.get('dueDate').touched" class="help-block">Please enter a due date </span>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="priority">Priority</label>
+      </div>
+      <div class="col-md-9">
+        <select class="form-control modal__btn--margin" name="priority" id="priority" formControlName="priority">
+          <option [value]="priority" *ngFor="let priority of priorities">{{priority}}</option>
+        </select>
+        <span *ngIf="!addTaskForm.get('priority').valid && addTaskForm.get('priority').touched" class="help-block">Please enter a priority </span>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="category">Category</label>
+      </div>
+      <div class="col-md-9">
+        <select class="form-control modal__btn--margin" name="category" id="prcategoryiority" formControlName="categoryId">
+          <option [value]="category.id" *ngFor="let category of categories">{{category.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 offset-md-2">
+        <button type="button" class="modal__btn cancel" (click)="activeModal.dismiss('Cross click');">Cancel </button>
+      </div>
+      <div class="col-md-4 ">
+        <button type="submit" class="modal__btn save" (click)="submit();">Save </button>
+      </div>
+    </div>
+  </form>
+</div>

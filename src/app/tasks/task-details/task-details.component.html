@@ -1,0 +1,96 @@
+<form [formGroup]="editTaskForm">
+  <div class="modal-header">
+    <h4 class="modal-title modal__header" id="modal-basic-title" *ngIf="!editTaskInfo">{{task.name}}</h4>
+    <input class="modal-title modal__body--input" id="modal-basic-title" *ngIf="editTaskInfo" value="{{task.name}}" formControlName="name"
+      type="text">
+    <span *ngIf="!editTaskForm.get('name').valid && editTaskForm.get('name').touched" class="help-block">Please enter a title </span>
+    <button type="button" class="close modal__close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-3">
+        <label>Priority :</label>
+      </div>
+      <div class="col-md-9">
+        <span *ngIf="!editTaskInfo">{{task.priority}}</span>
+        <select class="form-control modal__body--margin" name="priorities" id="priorities" formControlName="priority" *ngIf="editTaskInfo">
+          <option [value]="priority" *ngFor="let priority of priorities" [selected]="task.priority==priority">{{priority}}</option>
+        </select>
+        <span *ngIf="!editTaskForm.get('priority').valid && editTaskForm.get('priority').touched" class="help-block">Please enter a priority </span>
+        <div (click)="editForm();" class="modal__body--edit" *ngIf="!editTaskInfo">
+          <i class="far fa-edit"></i>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="categories">Category :</label>
+      </div>
+      <div class="col-md-9">
+        <div *ngFor="let category of categories">
+          <div *ngIf="task.categoryId== category.id && !editTaskInfo">
+            {{category.name}} </div>
+        </div>
+        <select class="form-control modal__body--margin" name="categories" id="categories" formControlName="categoryId" *ngIf="editTaskInfo">
+          <option [value]="category.id" *ngFor="let category of categories" [selected]="category.id== task.categoryId ">{{category.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <label>Due Date :</label>
+      </div>
+      <div class="col-md-9">
+        <span *ngIf="!editTaskInfo">{{task.dueDate | date:'mediumDate'}}</span>
+        <span *ngIf="!task.dueDate && !editTaskInfo">NA</span>
+        <my-date-picker *ngIf="editTaskInfo" name="date" [options]="myDatePickerOptions" class="modal__body--margin" formControlName="dueDate"></my-date-picker>
+        <span *ngIf="!editTaskForm.get('dueDate').valid && editTaskForm.get('dueDate').touched" class="help-block">Please enter a date </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 offset-md-4">
+        <button type="submit" *ngIf="editTaskInfo" class="submit_search modal__save--btn " (click)="submitEditTask();"> Save </button>
+      </div>
+    </div>
+    <hr class="modal__body--line">
+    <div class="modal__subtasks">
+      <div *ngFor="let subtask of taskDetails; let i = index ">
+        <div class="form-check modal__subtasks--edit" [formGroup]="editSubTaskForm">
+          <div class="row">
+            <div class="col-md-9">
+              <input class="form-check-input" type="checkbox" id="defaultCheck1" [checked]="subtask.done" (click)="toggleCheck(subtask.id,subtask.done);">
+              <label class="form-check-label" *ngIf="selectedSubTask!==subtask.id">
+                {{subtask.item}}
+              </label>
+              <input class="modal__subtasks--edit--input modal__body--input" type="text" *ngIf="selectedSubTask==subtask.id" value="{{subtask.item}}"
+                formControlName="item">
+            </div>
+            <div class="col-md-3">
+              <span class="modal__subtasks--icon" (click)="editSubTask(subtask.id)" *ngIf="selectedSubTask==subtask.id">
+                <i class="far fa-check-circle"></i>
+              </span>
+              <span class="modal__subtasks--icon" (click)="selectSubTask(subtask.id)">
+                <i class="fas fa-pencil-alt"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="form-check" [formGroup]="addSubTaskForm" *ngIf="newSubTask">
+        <input class="form-check-input" type="checkbox" formControlName="done">
+        <input type="text"  class="modal__body--input" formControlName="item">
+        <span *ngIf="!addSubTaskForm.get('item').valid && addSubTaskForm.get('item').touched" class="help-block">Please enter a title </span>
+        <div (click)="submitNewSubTask()" class="modal__subtasks--icon">
+          <i class="far fa-check-circle"></i>
+        </div>
+      </div>
+    </div>
+    <span (click)="addSubTask();" class="modal__subtasks--add--float">
+      <i class="fas fa-plus modal__subtasks--add" data-toggle="tooltip" title="Add new subtask"></i>
+    </span>
+  </div>
+</form>

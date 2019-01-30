@@ -1,0 +1,90 @@
+.modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__header {
+  font-family: 'Montserrat';
+  font-size: 20px;
+  font-weight: 600;
+  text-align: left;
+  color: #184161;
+}
+
+.modal__close {
+  outline: none;
+}
+
+.modal__body--edit {
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+}
+
+.modal__body--input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  outline: none;
+}
+
+.modal__body--margin {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.modal__save--btn {
+  border-radius: 100px;
+  background-color: #ffffff;
+  border: solid 1px #0895ff;
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #0895ff;
+  width: 100%;
+  margin-top: 20px;
+  outline: none;
+}
+.modal__body--line {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.modal__subtasks--icon {
+  float: right;
+  cursor: pointer;
+  color: dodgerblue;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.modal__subtasks--edit {
+  margin-top: 7px;
+}
+
+.modal__subtasks--edit--input {
+  width: 100%;
+  margin-left: 5px;
+}
+
+.modal__subtasks {
+  height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.modal__subtasks--add {
+  color: forestgreen;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.modal__subtasks--add--float {
+  text-align: right;
+}

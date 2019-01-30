@@ -1,0 +1,71 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="filter__header">
+      <div class="row">
+        <div class="col-md-3">
+          <label class="filter__header--title">Filter By Name</label>
+          <form [formGroup]="submitForm">
+            <input type="text" formControlName="nameFilter" class="form-control filter__header--input" placeholder="Filter by name">
+          </form>
+        </div>
+        <div class="col-md-3 offset-md-2">
+          <label class="filter__header--title">Filter By Priority</label>
+          <div class="filter__header--checkboxes">
+            <label class="check-item filter__header--checkbox"> high
+              <input type="checkbox" (change)="onCheckChange($event, this.prioritiesFilter)" value="high" />
+            </label>
+            <label class="check-item filter__header--checkbox"> medium
+              <input type="checkbox" (change)="onCheckChange($event, this.prioritiesFilter)" value="medium" />
+            </label>
+            <label class="check-item filter__header--checkbox"> low
+              <input type="checkbox" (change)="onCheckChange($event, this.prioritiesFilter)" value="low" />
+            </label>
+          </div>
+        </div>
+        <div class="col-md-2 offset-md-1">
+          <button class="filter__header--add" (click)="addNewItem();">Add New Task +</button>
+        </div>
+      </div>
+    </div>
+    <div class="stages__grid col s8">
+      <div class="stage__grid--flex">
+        <div *ngFor="let category of itemsSeparated; let i = index" class="stages__grid--stage">
+          <div class="stages__grid--header">
+            <div class="stages__grid--header--title">
+              {{category.name}}
+              <div class="btn-group stages__grid--header--sort">
+                <button class="btn btn-secondary btn-sm dropdown-toggle stages__grid--header--btn" type="button" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  Sort by priority
+                </button>
+                <div class="dropdown-menu stages__grid--header--dropdown">
+                  <a class="dropdown-item" (click)="sort(i,category.items,'up')">High to Low</a>
+                  <a class="dropdown-item" (click)="sort(i,category.items,'down')">Low to High</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="stages__grid--items">
+            <div *ngFor=" let task of category.items">
+              <div class="stages__grid--card" (click)="viewItem(task);">
+                <h5>{{task.name}}</h5>
+                <div class="stages__grid--card--content">
+                  <div class="stages__grid--card--lines">
+                    <label>Due Date :</label>
+                    <p>{{task.dueDate | date:'mediumDate' }}</p>
+                    <p *ngIf="!task.dueDate">NA</p>
+                  </div>
+                  <div class="stages__grid--card--lines">
+                    <label>Priority :</label>
+                    <p>{{task.priority}}</p>
+                    <p *ngIf="!task.priority">NA</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
